@@ -12,7 +12,8 @@ WebStart-Backend-Java/
 │                             ├─── model/                                 # Enthält interne Datenmodelle, die zentrale Strukturen im Code darstellen
 │                             │    └─── Todo.java                         # Datenobjekt mit id, title, done
 │                             └─── service/                               # Geschäftslogik für Todos (z. B. erstellen, speichern)
-│                                  └─── TodoService.java                  # Zentrale Logik zum Anlegen und Verwalten von Todos
+│                                  ├─── InMemoryTodoService.java          # Zentrale Logik zum Anlegen und Verwalten von Todos
+│                                  └─── TodoService.java                  # Interface zur Definition der Todo-Service-Verträge
 │
 └─── README.md                                                            # Projektbeschreibung & Strukturübersicht
 ```
