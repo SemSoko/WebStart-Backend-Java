@@ -5,10 +5,12 @@ WebStart-Backend-Java/
 │         └─── java/                                                      # Einstiegspunkt für Java-Pakete (Source Root)
 │              └─── com/semsoko/webstartbackend/                          # Root-Package für das Backend
 │                        └─── todo/                                       # Modul für Todo-Funktionalität
-│                             ├─── model/                                 # Enthält interne Datenmodelle, die zentrale Strukturen im Code darstellen
-│                             │    └─── Todo.java                         # Datenobjekt mit id, title, done
-│                             └─── dto/                                   # Datenübertragungsobjekte (Request/Response)
-│                                  └─── NewTodoRequest.java               # Eingabeobjekt für neue Todos (z. B. via JSON)
+│                             ├─── controller/                            # REST-Controller mit den HTTP-Endpunkten (z. B. POST /api/todos)
+│                             │    └─── TodoController.java               # Steuerung eingehender HTTP-Anfragen
+│                             ├─── dto/                                   # Datenübertragungsobjekte (Request/Response)
+│                             │    └─── NewTodoRequest.java               # Eingabeobjekt für neue Todos (z. B. via JSON)
+│                             └─── model/                                 # Enthält interne Datenmodelle, die zentrale Strukturen im Code darstellen
+│                                  └─── Todo.java                         # Datenobjekt mit id, title, done
 │
 └─── README.md                                                            # Projektbeschreibung & Strukturübersicht
 ```
