@@ -17,3 +17,16 @@ WebStart-Backend-Java/
 │
 └─── README.md                                                            # Projektbeschreibung & Strukturübersicht
 ```
+
+---
+
+### Anwendungskonfiguration
+
+Die Anwendung verwendet Spring Profile-Management zur Auswahl der Umgebung.\
+Aktives Profil (in `application.properties`):
+
+```properties\
+spring.profiles.active=dev\
+```
+
+-> Steuert, welche Service-Implementierung aktiv ist (z. B. InMemoryTodoService bei "dev")
