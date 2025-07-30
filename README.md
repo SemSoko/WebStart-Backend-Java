@@ -9,8 +9,10 @@ WebStart-Backend-Java/
 │                             │    └─── TodoController.java               # Steuerung eingehender HTTP-Anfragen
 │                             ├─── dto/                                   # Datenübertragungsobjekte (Request/Response)
 │                             │    └─── NewTodoRequest.java               # Eingabeobjekt für neue Todos (z. B. via JSON)
-│                             └─── model/                                 # Enthält interne Datenmodelle, die zentrale Strukturen im Code darstellen
-│                                  └─── Todo.java                         # Datenobjekt mit id, title, done
+│                             ├─── model/                                 # Enthält interne Datenmodelle, die zentrale Strukturen im Code darstellen
+│                             │    └─── Todo.java                         # Datenobjekt mit id, title, done
+│                             └─── service/                               # Geschäftslogik für Todos (z. B. erstellen, speichern)
+│                                  └─── TodoService.java                  # Zentrale Logik zum Anlegen und Verwalten von Todos
 │
 └─── README.md                                                            # Projektbeschreibung & Strukturübersicht
 ```
