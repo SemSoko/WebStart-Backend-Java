@@ -2,10 +2,9 @@ package com.semsoko.webstartbackend.todo.controller;
 
 import com.semsoko.webstartbackend.todo.dto.NewTodoRequest;
 import com.semsoko.webstartbackend.todo.model.Todo;
+import com.semsoko.webstartbackend.todo.service.TodoService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * RestController -> macht aus der Klasse einen HTTP-Controller
@@ -14,24 +13,16 @@ import java.util.List;
 @RestController
 @RequestMapping("api/todos")
 public class TodoController {
-    private final List<Todo> todos = new ArrayList<>();
+    private final TodoService todoService;
 
+    public TodoController(@Qualifier("inMemory") TodoService todoService){
+        this.todoService = todoService;
+    }
     /**
      * PostMapping -> Methode für POST-Anfragen
      */
     @PostMapping
-    public Todo createTodo(
-            /**
-             * RequestBody -> Spring mappt das JSON in NewTodoRequest
-             */
-            @RequestBody NewTodoRequest request
-    ){
-        Todo newTodo = new Todo(request.getTitle());
-        /**
-         * Liste speichert Todos im Arbeitsspeicher (noch keine DB)
-         */
-        todos.add(newTodo);
-
-        return newTodo;
+    public Todo create(@RequestBody NewTodoRequest request){
+        return todoService.createTodo(request);
     }
 }
