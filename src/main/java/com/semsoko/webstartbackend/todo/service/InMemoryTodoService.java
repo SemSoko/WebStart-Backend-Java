@@ -2,27 +2,26 @@ package com.semsoko.webstartbackend.todo.service;
 
 import com.semsoko.webstartbackend.todo.dto.NewTodoRequest;
 import com.semsoko.webstartbackend.todo.model.Todo;
+import com.semsoko.webstartbackend.todo.repository.TodoRepository;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Profile("dev")
 @Service
 @Qualifier("inMemory")
 public class InMemoryTodoService implements TodoService{
-    /**
-     * Temporaerer In-Memory-Speicher, wird spaeter ins Repository ausgelagert.
-     */
-    private final List<Todo> todos = new ArrayList<>();
+    private final TodoRepository repository;
+
+    public InMemoryTodoService(@Qualifier("inMemory") TodoRepository repository){
+        this.repository = repository;
+    }
 
     @Override
     public Todo createTodo(NewTodoRequest request){
         Todo newTodo = new Todo(request.getTitle());
-        todos.add(newTodo);
-
+        repository.save(newTodo);
         return newTodo;
     }
 }
