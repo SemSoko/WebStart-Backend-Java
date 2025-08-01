@@ -11,6 +11,9 @@ WebStart-Backend-Java/
 │                             │    └─── NewTodoRequest.java               # Eingabeobjekt für neue Todos (z. B. via JSON)
 │                             ├─── model/                                 # Enthält interne Datenmodelle, die zentrale Strukturen im Code darstellen
 │                             │    └─── Todo.java                         # Datenobjekt mit id, title, done
+│                             ├─── repository/                            # Schnittstelle und Implementierung zur Speicherung von Todos
+│                             │    ├─── InMemoryTodoRepository.java       # In-Memory-Implementierung der Speicherung für das dev-Profil
+│                             │    └─── TodoRepository.java               # Repository-Interface für die Datenzugriffsschicht
 │                             └─── service/                               # Geschäftslogik für Todos (z. B. erstellen, speichern)
 │                                  ├─── InMemoryTodoService.java          # Zentrale Logik zum Anlegen und Verwalten von Todos
 │                                  └─── TodoService.java                  # Interface zur Definition der Todo-Service-Verträge
