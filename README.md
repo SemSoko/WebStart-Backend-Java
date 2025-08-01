@@ -2,23 +2,27 @@
 WebStart-Backend-Java/
 ├── src/
 │    └─── main/                                                           # Haupt-Quellcode (Java, Ressourcen, etc.)
-│         └─── java/                                                      # Einstiegspunkt für Java-Pakete (Source Root)
-│              └─── com/semsoko/webstartbackend/                          # Root-Package für das Backend
-│                        └─── todo/                                       # Modul für Todo-Funktionalität
-│                             ├─── controller/                            # REST-Controller mit den HTTP-Endpunkten (z. B. POST /api/todos)
-│                             │    └─── TodoController.java               # Steuerung eingehender HTTP-Anfragen
-│                             ├─── dto/                                   # Datenübertragungsobjekte (Request/Response)
-│                             │    └─── NewTodoRequest.java               # Eingabeobjekt für neue Todos (z. B. via JSON)
-│                             ├─── model/                                 # Enthält interne Datenmodelle, die zentrale Strukturen im Code darstellen
-│                             │    └─── Todo.java                         # Datenobjekt mit id, title, done
-│                             ├─── repository/                            # Schnittstelle und Implementierung zur Speicherung von Todos
-│                             │    ├─── InMemoryTodoRepository.java       # In-Memory-Implementierung der Speicherung für das dev-Profil
-│                             │    └─── TodoRepository.java               # Repository-Interface für die Datenzugriffsschicht
-│                             └─── service/                               # Geschäftslogik für Todos (z. B. erstellen, speichern)
-│                                  ├─── InMemoryTodoService.java          # Zentrale Logik zum Anlegen und Verwalten von Todos
-│                                  └─── TodoService.java                  # Interface zur Definition der Todo-Service-Verträge
+│         ├─── java/                                                      # Einstiegspunkt für Java-Pakete (Source Root)
+│         │    └─── com/semsoko/webstartbackend/                          # Root-Package für das Backend
+│         │               └─── todo/                                       # Modul für Todo-Funktionalität
+│         │                    ├─── controller/                            # REST-Controller mit den HTTP-Endpunkten (z. B. POST /api/todos)
+│         │                    │    └─── TodoController.java               # Steuerung eingehender HTTP-Anfragen
+│         │                    ├─── dto/                                   # Datenübertragungsobjekte (Request/Response)
+│         │                    │    └─── NewTodoRequest.java               # Eingabeobjekt für neue Todos (z. B. via JSON)
+│         │                    ├─── model/                                 # Enthält interne Datenmodelle, die zentrale Strukturen im Code darstellen
+│         │                    │    └─── Todo.java                         # Datenobjekt mit id, title, done
+│         │                    ├─── repository/                            # Schnittstelle und Implementierung zur Speicherung von Todos
+│         │                    │    ├─── InMemoryTodoRepository.java       # In-Memory-Implementierung der Speicherung für das dev-Profil
+│         │                    │    └─── TodoRepository.java               # Repository-Interface für die Datenzugriffsschicht
+│         │                    └─── service/                               # Geschäftslogik für Todos (z. B. erstellen, speichern)
+│         │                         ├─── InMemoryTodoService.java          # Zentrale Logik zum Anlegen und Verwalten von Todos
+│         │                         └─── TodoService.java                  # Interface zur Definition der Todo-Service-Verträge
+│         │
+│         └─── resources/                                                  # Konfiguration der Spring-Anwendung
+│              ├─── application.properties                                 # Globale Konfiguration – aktiviert das gewünschte Profil (z. B. dev)
+│              └─── application-dev.properties                             # Profilabhängige Konfiguration – PostgreSQL-Einstellungen für die lokale Entwicklung
 │
-└─── README.md                                                            # Projektbeschreibung & Strukturübersicht
+└─── README.md                                                             # Projektbeschreibung & Strukturübersicht
 ```
 
 ---
