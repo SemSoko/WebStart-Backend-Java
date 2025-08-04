@@ -40,4 +40,8 @@ public class TodoEntity {
     public void setDone(Boolean done){
         this.done = done;
     }
+
+    public void setTitle(String title){
+        this.title = title;
+    }
 }
