@@ -40,13 +40,63 @@ WebStart-Backend-Java/
 
 ---
 
+### Datenbank
+
+Dieses Projekt verwendet PostgreSQL als relationale Datenbank. Die Datenbank
+wird lokal über Docker bereitgestellt, was eine einfache und reproduzierbare
+Entwicklungsumgebung ermöglicht.
+
+Für Testzwecke wird eine H2 In-Memory-Datenbank verwendet, um schnelle und
+isolierte Tests ohne externe Abhängigkeiten zu ermöglichen.
+
+### Datenbankkonfiguration
+
+## Entwicklungsumgebung (Profil: dev)
+
+Die Verbindung zur PostgreSQL-Datenbank erfolgt über das Spring-Profil `dev`.\
+- Konfiguration: `src/main/resources/application-dev.properties`
+- Aktivierung des Profils:\
+  - In `application.properties`, per:\
+    `spring.profiles.active=dev`\
+  - Ueber `@Profile("dev")` in:
+    - `InMemoryTodoRepository.java`
+	- `InMemoryTodoService.java`
+
+# Hinweise
+
+Zugangsdaten sind aktuell in application-dev.properties hinterlegt.\
+Eine .env-Datei zur sicheren Verwaltung sensibler Daten (z. B. DB_PASSWORD) ist in Planung.\
+
+In der Datei: `/var/lib/postgresql/data/pg_hba.conf` der PostgreSQL-Instanz wurde die\
+Authentifizierungsmethode auf `md5` gesetzt.
+
+## Testumgebung (Profil: test)
+
+Für automatisierte Tests wird eine In-Memory-H2-Datenbank genutzt.\
+- Konfiguration: `src/test/resources/application-test.properties`
+- Aktivierung des Profils:
+  - Über Annotation `@ActiveProfiles("test")` in:
+  - `ApplicationTest.java`
+
 ### Anwendungskonfiguration
 
 Die Anwendung verwendet Spring Profile-Management zur Auswahl der Umgebung.\
-Aktives Profil (in `application.properties`):
+Das aktive Profil wird in `application.properties` gesetzt:
 
 ```properties\
 spring.profiles.active=dev\
 ```
 
--> Steuert, welche Service-Implementierung aktiv ist (z. B. InMemoryTodoService bei "dev")
+-> Steuert, welche Konfiguration und Service-Implementierung aktiv sind
+
+### Infrastruktur & CI/CD (in Planung)
+
+Zur besseren Trennung von Code und Infrastruktur ist ein separates Repository\
+geplant, in dem alle relevanten Themen rund um:
+
+- CI/CD (z. B. GitHub Actions, Tests, Deployments)
+- Docker & Containerisierung
+- Konfigurationsmanagement
+- Sicherheitsaspekte (Secrets, .env, Vault, etc.)
+
+dokumentiert und gepflegt werden.
