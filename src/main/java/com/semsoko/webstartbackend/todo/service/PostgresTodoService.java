@@ -20,9 +20,8 @@ import org.springframework.stereotype.Service;
  *
  * @see TodoService
  */
-@Profile("dev")
+@Profile("dev-postgres")
 @Service
-@Qualifier("jpa")
 public class PostgresTodoService implements TodoService{
     private final JpaTodoRepository repository;
     private final TodoMapper mapper;
