@@ -8,9 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Profile("dev")
+@Profile("dev-inmemory")
 @Repository
-@Qualifier("inMemory")
 public class InMemoryTodoRepository implements TodoRepository{
     private final List<Todo> todos = new ArrayList<>();
 
