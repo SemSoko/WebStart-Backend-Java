@@ -1,8 +1,8 @@
 package com.semsoko.webstartbackend.todo.service;
 
 import com.semsoko.webstartbackend.todo.dto.NewTodoRequest;
-import com.semsoko.webstartbackend.todo.model.Todo;
+import com.semsoko.webstartbackend.todo.dto.TodoResponse;
 
 public interface TodoService {
-    Todo createTodo(NewTodoRequest request);
+    TodoResponse createTodo(NewTodoRequest request);
 }
