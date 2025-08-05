@@ -20,9 +20,8 @@ import org.springframework.stereotype.Service;
  *
  * @see TodoService
  */
-@Profile("dev")
+@Profile("dev-inmemory")
 @Service
-@Qualifier("inMemory")
 public class InMemoryTodoService implements TodoService{
     private final TodoRepository repository;
     private final TodoMapper mapper;
