@@ -10,6 +10,8 @@ WebStart-Backend-Java/
 │         │    │    │    ├─── dto/                                    # Datenübertragungsobjekte (Request/Response)
 │         │    │    │    │    ├─── NewTodoRequest.java                # Eingabeobjekt für neue Todos (z. B. via JSON)
 │         │    │    │    │    └─── TodoResponse.java                  # Antwort-DTO für die API – definiert, welche Todo-Daten als JSON zurückgegeben werden
+│         │    │    │    ├─── mapper/                                 # Transformation von internen Modellen und Entities in DTOs (und umgekehrt)
+│         │    │    │    │    └─── TodoRepository.java                # Statische Methoden für Mapping zwischen Entity <-> DTO
 │         │    │    │    ├─── model/                                  # Enthält interne Datenmodelle, die zentrale Strukturen im Code darstellen
 │         │    │    │    │    ├─── Todo.java                          # Datenobjekt mit id, title, done
 │         │    │    │    │    └─── TodoEntity.java                    # JPA-Entity zur Abbildung von Todos in der Datenbank
