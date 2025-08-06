@@ -8,4 +8,11 @@ import java.util.List;
 public interface TodoService {
     TodoResponse createTodo(NewTodoRequest request);
     List<TodoResponse> findAll();
+
+    /**
+     * Loescht ein Todo anhand seiner ID.
+     *
+     * @param id ID des zu loeschenden Todos
+     */
+    void deleteById(Long id);
 }
