@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Profile("dev-postgres")
 @Repository
-public interface JpaTodoRepository extends JpaRepository<TodoEntity, Integer>{
+public interface JpaTodoRepository extends JpaRepository<TodoEntity, Long>{
 
 }
