@@ -7,4 +7,5 @@ import java.util.List;
 public interface TodoRepository {
     void save(Todo todo);
     List<Todo> findAll();
+    void deleteById(Long id);
 }
