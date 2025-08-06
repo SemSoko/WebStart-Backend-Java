@@ -64,7 +64,7 @@ public class TodoController {
      * @param id ID des zu loeschenden Todos
      */
     @DeleteMapping("{id}")
-    public ResponseEntity<void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         todoService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
