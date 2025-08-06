@@ -79,8 +79,6 @@ public class InMemoryTodoService implements TodoService{
      */
     @Override
     public void deleteById(Long id){
-        List<Todo> allTodos = repository.findAll();
-
-        boolean removed = allTodos.removeIf(todo -> todo.getId().equals(id));
+        repository.deleteById(id);
     }
 }
