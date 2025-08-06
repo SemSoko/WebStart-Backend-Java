@@ -4,6 +4,8 @@ import com.semsoko.webstartbackend.todo.dto.NewTodoRequest;
 import com.semsoko.webstartbackend.todo.dto.TodoResponse;
 import com.semsoko.webstartbackend.todo.service.TodoService;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,4 +42,15 @@ public class TodoController {
     public TodoResponse create(@RequestBody NewTodoRequest request){
         return todoService.createTodo(request);
     }
+
+    /**
+     * Gibt eine Liste aller gespeicherten Todos zurueck.
+     *
+     * @return Liste von {@link TodoResponse}-Objekten
+     */
+    @GetMapping
+    public List<TodoResponse> findAll(){
+        return todoService.findAll();
+    }
+
 }
