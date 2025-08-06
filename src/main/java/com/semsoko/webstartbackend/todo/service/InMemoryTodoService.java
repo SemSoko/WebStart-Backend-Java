@@ -55,6 +55,15 @@ public class InMemoryTodoService implements TodoService{
         return mapper.mapToResponse(newTodo);
     }
 
+    /**
+     * Ruft alle gespeicherten Todos aus dem In-Memory-Repository ab und
+     * wandlet sie in {@link TodoResponse}-Objekte um.
+     *
+     * Diese Methode ist nur im Profil "dev-inmemory" aktiv und dient der lokalen Entwicklung
+     * ohne persistente Datenbank.
+     *
+     * @return Liste aller Todos als API-geeignete {@link TodoResponse}-Objekte
+     */
     @Override
     public List<TodoResponse> findAll(){
         return repository.findAll()
