@@ -63,4 +63,9 @@ public class PostgresTodoService implements TodoService{
                 .map(mapper::mapToResponse)
                 .toList();
     }
+
+    @Override
+    public void deleteById(Long id){
+        repository.deleteById(id);
+    }
 }
