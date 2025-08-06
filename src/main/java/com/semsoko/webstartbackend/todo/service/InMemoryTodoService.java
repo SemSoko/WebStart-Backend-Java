@@ -6,6 +6,8 @@ import com.semsoko.webstartbackend.todo.repository.TodoRepository;
 import com.semsoko.webstartbackend.todo.dto.TodoResponse;
 import com.semsoko.webstartbackend.todo.mapper.TodoMapper;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -51,5 +53,13 @@ public class InMemoryTodoService implements TodoService{
         Todo newTodo = new Todo(request.getTitle());
         repository.save(newTodo);
         return mapper.mapToResponse(newTodo);
+    }
+
+    @Override
+    public List<TodoResponse> findAll(){
+        return repository.findAll()
+                .stream()
+                .map(mapper::mapToResponse)
+                .toList();
     }
 }
