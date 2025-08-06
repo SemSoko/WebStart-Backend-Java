@@ -1,28 +1,43 @@
 package com.semsoko.webstartbackend.todo.controller;
 
 import com.semsoko.webstartbackend.todo.dto.NewTodoRequest;
-import com.semsoko.webstartbackend.todo.model.Todo;
+import com.semsoko.webstartbackend.todo.dto.TodoResponse;
 import com.semsoko.webstartbackend.todo.service.TodoService;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * RestController -> macht aus der Klasse einen HTTP-Controller
- * RequestMapping("/api/todos") -> Basisroute
+ * REST-Controller fuer das Todo-Modul.
+ *
+ * Basisroute: /api/todos
+ *
+ * Delegiert Aufrufe an {@link TodoService} - je nach aktiviertem Profil.
  */
 @RestController
 @RequestMapping("api/todos")
 public class TodoController {
     private final TodoService todoService;
 
-    public TodoController(@Qualifier("inMemory") TodoService todoService){
+    /**
+     * Konstruktor-basierte Abhaengigkeitsinjektion.
+     * Spring injiziert autoamtisch die passende {@link TodoService}-Implementierung,
+     * abhaengig vom aktiven Profil (z.B. "dev" oder "prod").
+     *
+     * @param todoService
+     */
+    public TodoController(TodoService todoService){
         this.todoService = todoService;
     }
+
     /**
-     * PostMapping -> Methode für POST-Anfragen
+     * Erstellt ein neues Todo auf Basis der Client-Anfrage.
+     *
+     * @param request Eingabedaten vom Client (JSON)
+     * @return Datenstruktur zur API-Ausgabe (JSON)
      */
     @PostMapping
-    public Todo create(@RequestBody NewTodoRequest request){
+    public TodoResponse create(@RequestBody NewTodoRequest request){
         return todoService.createTodo(request);
     }
 }
