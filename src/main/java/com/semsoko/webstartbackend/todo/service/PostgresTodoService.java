@@ -7,6 +7,8 @@ import com.semsoko.webstartbackend.todo.repository.JpaTodoRepository;
 import com.semsoko.webstartbackend.todo.mapper.TodoMapper;
 import com.semsoko.webstartbackend.todo.dto.TodoResponse;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -46,5 +48,19 @@ public class PostgresTodoService implements TodoService{
         TodoEntity saved = repository.save(entity);
 
         return mapper.mapToResponse(saved);
+    }
+
+    /**
+     * Ruft alle Todos aus der PostgreSQL-Datenbank ab
+     * und wandelt sie in {@link TodoResponse}-Objekte um.
+     *
+     * @return Liste aller Todos in API-kompatibler Struktur.
+     */
+    @Override
+    public List<TodoResponse> findAll(){
+        return repository.findAll()
+                .stream()
+                .map(mapper::mapToResponse)
+                .toList();
     }
 }
