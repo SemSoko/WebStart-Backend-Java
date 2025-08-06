@@ -7,6 +7,7 @@ import com.semsoko.webstartbackend.todo.service.TodoService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -53,4 +54,18 @@ public class TodoController {
         return todoService.findAll();
     }
 
+    /**
+     * Loescht ein Todo anhand der ID.
+     *
+     * Beispiel: DELETE /api/todos/3
+     *
+     * Gibt 204 No Content zurueck bei Erfolg.
+     *
+     * @param id ID des zu loeschenden Todos
+     */
+    @DeleteMapping("{id}")
+    public ResponseEntity<void> delete(@PathVariable Long id){
+        todoService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
