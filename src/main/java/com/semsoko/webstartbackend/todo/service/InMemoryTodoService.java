@@ -71,4 +71,16 @@ public class InMemoryTodoService implements TodoService{
                 .map(mapper::mapToResponse)
                 .toList();
     }
+
+    /**
+     * Loescht ein Todo anhand seiner ID aus dem In-Memory-Repository.
+     *
+     * @param id ID des zu loeschenden Todos
+     */
+    @Override
+    public void deleteById(Long id){
+        List<Todo> allTodos = repository.findAll();
+
+        boolean removed = allTodos.removeIf(todo -> todo.getId().equals(id));
+    }
 }
