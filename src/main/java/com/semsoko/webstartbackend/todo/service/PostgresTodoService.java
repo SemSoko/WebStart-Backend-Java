@@ -68,4 +68,15 @@ public class PostgresTodoService implements TodoService{
     public void deleteById(Long id){
         repository.deleteById(id);
     }
+
+    @Override
+    public TodoResponse toggleDoneStatus(Long id){
+        TodoEntity entity = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
+
+        entity.setDone(!entity.getDone());
+        TodoEntity update = repository.save(entity);
+
+        return mapper.mapToResponse(update);
+    }
 }
