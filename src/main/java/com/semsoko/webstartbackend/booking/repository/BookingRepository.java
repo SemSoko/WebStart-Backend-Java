@@ -10,5 +10,5 @@ public interface BookingRepository extends JpaRepository<BookingEntity, Long>{
     /**
      * Erweiterbar z.B. mit findByUserId(...) etc
      */
-    
+
 }
