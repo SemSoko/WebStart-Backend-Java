@@ -68,4 +68,17 @@ public class TodoController {
         todoService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    /**
+     * Schaltet den Erledigt-Status (done) eines Todos um.
+     *
+     * Beispiel: PATCH /api/todos/3/toggle
+     *
+     * @param id ID des zu toggelnden Todos
+     * @return Aktualisiertes Todos als {@link TodoResponse}
+     */
+    @PatchMapping("{id}/toggle")
+    public TodoResponse toggle(@PathVariable Long id){
+        return todoService.toggleDoneStatus(id);
+    }
 }
