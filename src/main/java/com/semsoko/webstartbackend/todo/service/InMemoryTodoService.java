@@ -7,6 +7,7 @@ import com.semsoko.webstartbackend.todo.dto.TodoResponse;
 import com.semsoko.webstartbackend.todo.mapper.TodoMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
@@ -80,5 +81,15 @@ public class InMemoryTodoService implements TodoService{
     @Override
     public void deleteById(Long id){
         repository.deleteById(id);
+    }
+
+    @Override
+    public TodoResponse toggleDoneStatus(Long id){
+        return repository.findById(id)
+                .map(todo -> {
+                    todo.setDone(!todo.getDone());
+                    return mapper.mapToResponse(todo);
+                })
+                .orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
     }
 }
