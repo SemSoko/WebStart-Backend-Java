@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Profile("dev-inmemory")
 @Repository
@@ -26,5 +27,12 @@ public class InMemoryTodoRepository implements TodoRepository{
     @Override
     public void deleteById(Long id){
         todos.removeIf(todo -> todo.getId().equals(id));
+    }
+
+    @Override
+    public Optional findById(Long id){
+        return todos.stream()
+                .filter(todo -> todo.getId().equals(id))
+                .findFirst();
     }
 }
