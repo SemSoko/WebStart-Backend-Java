@@ -15,4 +15,6 @@ public interface TodoService {
      * @param id ID des zu loeschenden Todos
      */
     void deleteById(Long id);
+
+    TodoResponse toggleDoneStatus(Long id);
 }
