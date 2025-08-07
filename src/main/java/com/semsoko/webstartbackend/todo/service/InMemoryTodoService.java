@@ -36,7 +36,7 @@ public class InMemoryTodoService implements TodoService{
      * @param mapper        Mapper zur Umwandlung von internen {@link Todo} Objekten in {@link TodoResponse} DTOs
      */
     public InMemoryTodoService(
-            @Qualifier("inMemory") TodoRepository repository,
+            TodoRepository repository,
             TodoMapper mapper
     ){
         this.repository = repository;
