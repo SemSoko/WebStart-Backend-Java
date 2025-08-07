@@ -5,8 +5,8 @@ public class Todo {
      * static idCounter simuliert aktuell eine fortlaufende ID – in echten
      * Anwendungen übernimmt das später die Datenbank.
      */
-    private static int idCounter = 1;
-    private Integer id;
+    private static Long idCounter = 1L;
+    private Long id;
     private String title;
     private Boolean done;
 
@@ -16,7 +16,7 @@ public class Todo {
         this.done = false;
     }
 
-    public Integer getId(){
+    public Long getId(){
         return this.id;
     }
 

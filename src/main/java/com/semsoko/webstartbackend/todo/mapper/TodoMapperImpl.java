@@ -21,7 +21,7 @@ public class TodoMapperImpl implements TodoMapper{
     @Override
     public TodoResponse mapToResponse(Todo todo){
         return new TodoResponse(
-            todo.getId().longValue(),
+            todo.getId(),
                 todo.getTitle(),
                 todo.getDone()
         );

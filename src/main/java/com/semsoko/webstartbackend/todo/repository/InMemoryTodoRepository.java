@@ -22,4 +22,9 @@ public class InMemoryTodoRepository implements TodoRepository{
     public List<Todo> findAll(){
         return todos;
     }
+
+    @Override
+    public void deleteById(Long id){
+        todos.removeIf(todo -> todo.getId().equals(id));
+    }
 }
