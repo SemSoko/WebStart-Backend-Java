@@ -4,6 +4,28 @@ WebStart-Backend-Java/
 │    └─── main/                                                       # Haupt-Quellcode (Java, Ressourcen, etc.)
 │         ├─── java/                                                  # Einstiegspunkt für Java-Pakete (Source Root)
 │         │    ├─── com.semsoko.webstartbackend/                      # Root-Package für das Backend
+│         │    │    ├─── booking/                                     # Modul für Buchungsfunktionalität
+│         │    │    │    ├─── controller/                             # REST-Controller mit den HTTP-Endpunkten (z. B. POST /api/bookings)
+│         │    │    │    │    └─── BookingController.java             # Steuerung eingehender HTTP-Anfragen für Buchungen
+│         │    │    │    ├─── dto/                                    # Datenübertragungsobjekte für Request/Response im Booking-Modul
+│         │    │    │    │    ├─── BookingResponse.java               # Antwort-DTO für die API – definiert, welche Buchungsdaten als JSON zurückgegeben werden
+│         │    │    │    │    └─── NewBookingRequest.java             # Eingabeobjekt für neue Buchungen (z. B. via JSON)
+│         │    │    │    ├─── mapper/                                 # Transformation zwischen Entities/Modellen und DTOs für Buchungen
+│         │    │    │    │    ├─── BookingMapper.java                 # Interface für die Umwandlung zwischen Entity/Model und BookingResponse
+│         │    │    │    │    └─── BookingMapperImpl.java             # Implementierung des Mappers – enthält konkrete Logik für Entity/Model → DTO
+│         │    │    │    ├─── model/                                  # Interne Datenmodelle des Booking-Moduls
+│         │    │    │    │    ├─── Booking.java                       # Geschäftsmodell (optional, für interne Logik)
+│         │    │    │    │    └─── BookingEntity.java                 # JPA-Entity zur Abbildung von Buchungen in der Datenbank
+│         │    │    │    ├─── repository/                             # Schnittstelle zur Speicherung und Abfrage von Buchungen
+│         │    │    │    │    └─── BookingRepository.java             # Repository-Interface für die Datenzugriffsschicht (JPA)
+│         │    │    │    └─── service/                                # Geschäftslogik für Buchungen (z. B. erstellen, prüfen, stornieren)
+│         │    │    │         ├─── BookingService.java                # Interface zur Definition der Buchungs-Serviceverträge
+│         │    │    │         └─── BookingServiceImpl.java            # Implementierung der Buchungslogik
+│         │    │    ├─── shared/                                      # Gemeinsame, modulübergreifende Komponenten
+│         │    │    │    └─── api/                                    # Standardisierte API-Antwort- und Fehlerbehandlung
+│         │    │    │         ├─── ApiError.java                      # Modelliert strukturierte Fehlermeldungen (Code + Nachricht)
+│         │    │    │         ├─── ApiResponse.java                   # Generische, einheitliche API-Response-Struktur für alle Endpunkte
+│         │    │    │         └─── GlobalExceptionHandler.java        # Zentrales Exception-Handling, liefert standardisierte Fehler-Responses
 │         │    │    ├─── todo/                                        # Modul für Todo-Funktionalität
 │         │    │    │    ├─── controller/                             # REST-Controller mit den HTTP-Endpunkten (z. B. POST /api/todos)
 │         │    │    │    │    └─── TodoController.java                # Steuerung eingehender HTTP-Anfragen
@@ -23,23 +45,6 @@ WebStart-Backend-Java/
 │         │    │    │         ├─── InMemoryTodoService.java           # Zentrale Logik zum Anlegen und Verwalten von Todos
 │         │    │    │         └─── TodoService.java                   # Interface zur Definition der Todo-Service-Verträge
 │         │    │    │
-│         │    │    ├─── booking/                                     # Modul für Buchungsfunktionalität
-│         │    │    │    ├─── controller/                             # REST-Controller mit den HTTP-Endpunkten (z. B. POST /api/bookings)
-│         │    │    │    │    └─── BookingController.java             # Steuerung eingehender HTTP-Anfragen für Buchungen
-│         │    │    │    ├─── dto/                                    # Datenübertragungsobjekte für Request/Response im Booking-Modul
-│         │    │    │    │    ├─── BookingResponse.java               # Antwort-DTO für die API – definiert, welche Buchungsdaten als JSON zurückgegeben werden
-│         │    │    │    │    └─── NewBookingRequest.java             # Eingabeobjekt für neue Buchungen (z. B. via JSON)
-│         │    │    │    ├─── mapper/                                 # Transformation zwischen Entities/Modellen und DTOs für Buchungen
-│         │    │    │    │    ├─── BookingMapper.java                 # Interface für die Umwandlung zwischen Entity/Model und BookingResponse
-│         │    │    │    │    └─── BookingMapperImpl.java             # Implementierung des Mappers – enthält konkrete Logik für Entity/Model → DTO
-│         │    │    │    ├─── model/                                  # Interne Datenmodelle des Booking-Moduls
-│         │    │    │    │    ├─── Booking.java                       # Geschäftsmodell (optional, für interne Logik)
-│         │    │    │    │    └─── BookingEntity.java                 # JPA-Entity zur Abbildung von Buchungen in der Datenbank
-│         │    │    │    ├─── repository/                             # Schnittstelle zur Speicherung und Abfrage von Buchungen
-│         │    │    │    │    └─── BookingRepository.java             # Repository-Interface für die Datenzugriffsschicht (JPA)
-│         │    │    │    └─── service/                                # Geschäftslogik für Buchungen (z. B. erstellen, prüfen, stornieren)
-│         │    │    │         ├─── BookingService.java                # Interface zur Definition der Buchungs-Serviceverträge
-│         │    │    │         └─── BookingServiceImpl.java            # Implementierung der Buchungslogik
 │         │    │    │
 │         │    │    └─── Application.java                             # Einstiegspunkt der Spring Boot Anwendung (main-Methode + Spring-Kontext)
 │         │    │
