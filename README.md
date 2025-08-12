@@ -23,8 +23,12 @@ WebStart-Backend-Java/
 │         │    │    │         └─── BookingServiceImpl.java            # Implementierung der Buchungslogik
 │         │    │    ├─── shared/                                      # Gemeinsame, modulübergreifende Komponenten
 │         │    │    │    └─── api/                                    # Standardisierte API-Antwort- und Fehlerbehandlung
-│         │    │    │         ├─── ApiError.java                      # Modelliert strukturierte Fehlermeldungen (Code + Nachricht)
+│         │    │    │         ├─── ApiError.java                      # Datenobjekt für strukturierte Fehlermeldungen (Code + Nachricht)
+│         │    │    │         ├─── ApiErrorFactory.java               # Interface zur Erzeugung von ApiError-Objekten (DI-freundlich, testbar)
 │         │    │    │         ├─── ApiResponse.java                   # Generische, einheitliche API-Response-Struktur für alle Endpunkte
+│         │    │    │         ├─── ApiResponseFactory.java            # Interface zur Erzeugung von ApiResponse-Objekten (DI-freundlich)
+│         │    │    │         ├─── DefaultApiErrorFactory.java        # Standardimplementierung von ApiErrorFactory
+│         │    │    │         ├─── DefaultApiResponseFactory.java     # Standardimplementierung von ApiResponseFactory
 │         │    │    │         └─── GlobalExceptionHandler.java        # Zentrales Exception-Handling, liefert standardisierte Fehler-Responses
 │         │    │    ├─── todo/                                        # Modul für Todo-Funktionalität
 │         │    │    │    ├─── controller/                             # REST-Controller mit den HTTP-Endpunkten (z. B. POST /api/todos)
