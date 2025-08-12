@@ -4,6 +4,28 @@ WebStart-Backend-Java/
 │    └─── main/                                                       # Haupt-Quellcode (Java, Ressourcen, etc.)
 │         ├─── java/                                                  # Einstiegspunkt für Java-Pakete (Source Root)
 │         │    ├─── com.semsoko.webstartbackend/                      # Root-Package für das Backend
+│         │    │    ├─── auth/                                        # Modul für Authentifizierung & Autorisierung (JWT + Redis)
+│         │    │    │    ├─── controller/                             # REST-Endpunkte für Login, Token-Refresh, Logout
+│         │    │    │    │    └─── AuthController.java                # Controller für Authentifizierungsvorgänge
+│         │    │    │    ├─── dto/                                    # Datenobjekte für Auth-Requests/-Responses
+│         │    │    │    │    ├─── LoginRequest.java                  # Eingabeobjekt für Login (z.B. Benutzername, Passwort)
+│         │    │    │    │    ├─── LoginResponse.java                 # Antwortobjekt mit Access-/Refresh-Token
+│         │    │    │    │    ├─── RefreshTokenRequest.java           # Eingabeobjekt für das Anfordern eines neuen Access-Tokens
+│         │    │    │    │    └─── RefreshTokenResponse.java          # Antwortobjekt mit neuem Access-/Refresh-Token
+│         │    │    │    ├─── model/                                  # Interne Authentifizierungs- und Autorisierungsmodelle
+│         │    │    │    │    ├─── Role.java                          # Benutzerrolle(n) für Berechtigungsprüfung
+│         │    │    │    │    ├─── TokenClaims.java                   # Datenstruktur der JWT-Claims (z.B. User-ID, Rollen)
+│         │    │    │    │    └─── User.java                          # Benutzer-Entity bzw. -Domainmodell
+│         │    │    │    ├─── repository/                             # Zugriff auf externe Speichersysteme für Auth-Daten
+│         │    │    │    │    └─── RedisTokenRepository.java          # Verwaltung von Tokens (z.B. Blacklist, Refresh Tokens) in Redis
+│         │    │    │    ├─── security/                               # Sicherheitskonfiguration & Filter
+│         │    │    │    │    ├─── JwtAuthenticationFilter.java       # Filter zur Prüfung von JWTs bei eingehenden Requests
+│         │    │    │    │    └─── SecurityConfig.java                # Spring Security-Konfiguration (Routen, Auth-Mechanismen)
+│         │    │    │    └─── service/                                # Geschäftslogik für Authentifizierung & Tokenmanagement
+│         │    │    │         ├─── AuthService.java                   # Interface für Authentifizierungs-Operationen
+│         │    │    │         ├─── AuthServiceImpl.java               # Implementierung der Authentifizierungslogik
+│         │    │    │         ├─── TokenService.java                  # Interface für Token-Erzeugung und -Verwaltung
+│         │    │    │         └─── TokenServiceImpl.java              # Implementierung der Token-Logik (JWT-Erstellung, Validierung)
 │         │    │    ├─── booking/                                     # Modul für Buchungsfunktionalität
 │         │    │    │    ├─── controller/                             # REST-Controller mit den HTTP-Endpunkten (z. B. POST /api/bookings)
 │         │    │    │    │    └─── BookingController.java             # Steuerung eingehender HTTP-Anfragen für Buchungen
@@ -22,14 +44,17 @@ WebStart-Backend-Java/
 │         │    │    │         ├─── BookingService.java                # Interface zur Definition der Buchungs-Serviceverträge
 │         │    │    │         └─── BookingServiceImpl.java            # Implementierung der Buchungslogik
 │         │    │    ├─── shared/                                      # Gemeinsame, modulübergreifende Komponenten
-│         │    │    │    └─── api/                                    # Standardisierte API-Antwort- und Fehlerbehandlung
-│         │    │    │         ├─── ApiError.java                      # Datenobjekt für strukturierte Fehlermeldungen (Code + Nachricht)
-│         │    │    │         ├─── ApiErrorFactory.java               # Interface zur Erzeugung von ApiError-Objekten (DI-freundlich, testbar)
-│         │    │    │         ├─── ApiResponse.java                   # Generische, einheitliche API-Response-Struktur für alle Endpunkte
-│         │    │    │         ├─── ApiResponseFactory.java            # Interface zur Erzeugung von ApiResponse-Objekten (DI-freundlich)
-│         │    │    │         ├─── DefaultApiErrorFactory.java        # Standardimplementierung von ApiErrorFactory
-│         │    │    │         ├─── DefaultApiResponseFactory.java     # Standardimplementierung von ApiResponseFactory
-│         │    │    │         └─── GlobalExceptionHandler.java        # Zentrales Exception-Handling, liefert standardisierte Fehler-Responses
+│         │    │    │    ├─── api/                                    # Standardisierte API-Antwort- und Fehlerbehandlung
+│         │    │    │    │    ├─── ApiError.java                      # Datenobjekt für strukturierte Fehlermeldungen (Code + Nachricht)
+│         │    │    │    │    ├─── ApiErrorFactory.java               # Interface zur Erzeugung von ApiError-Objekten (DI-freundlich, testbar)
+│         │    │    │    │    ├─── ApiResponse.java                   # Generische, einheitliche API-Response-Struktur für alle Endpunkte
+│         │    │    │    │    ├─── ApiResponseFactory.java            # Interface zur Erzeugung von ApiResponse-Objekten (DI-freundlich)
+│         │    │    │    │    ├─── DefaultApiErrorFactory.java        # Standardimplementierung von ApiErrorFactory
+│         │    │    │    │    ├─── DefaultApiResponseFactory.java     # Standardimplementierung von ApiResponseFactory
+│         │    │    │    │    └─── GlobalExceptionHandler.java        # Zentrales Exception-Handling, liefert standardisierte Fehler-Responses
+│         │    │    │    └─── util/                                   # Hilfsklassen & Werkzeuge für Authentifizierung
+│         │    │    │         ├─── JwtUtil.java                       # Utility-Klasse zum Erzeugen, Validieren und Parsen von JWTs
+│         │    │    │         └─── PasswordHasher.java                # Utility-Klasse zum sicheren Hashen und Verifizieren von Passwörtern
 │         │    │    ├─── todo/                                        # Modul für Todo-Funktionalität
 │         │    │    │    ├─── controller/                             # REST-Controller mit den HTTP-Endpunkten (z. B. POST /api/todos)
 │         │    │    │    │    └─── TodoController.java                # Steuerung eingehender HTTP-Anfragen
