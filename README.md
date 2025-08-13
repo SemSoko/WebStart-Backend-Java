@@ -55,6 +55,8 @@ WebStart-Backend-Java/
 │         │    │    │    │    ├─── DefaultApiErrorFactory.java        # Standardimplementierung von ApiErrorFactory
 │         │    │    │    │    ├─── DefaultApiResponseFactory.java     # Standardimplementierung von ApiResponseFactory
 │         │    │    │    │    └─── GlobalExceptionHandler.java        # Zentrales Exception-Handling, liefert standardisierte Fehler-Responses
+│         │    │    │    ├─── config/                                 # Globale Konfigurationsklassen (z. B. Redis, Caching, Mapper)
+│         │    │    │    │    └─── RedisConfig.java                   # RedisTemplate-Bean mit String-basierter Serialisierung für Schlüssel/Werte
 │         │    │    │    └─── util/                                   # Hilfsklassen & Werkzeuge für Authentifizierung
 │         │    │    │         ├─── JwtUtil.java                       # Interface für JWT-Operationen (Erzeugen, Validieren, Parsen von Tokens)
 │         │    │    │         ├─── JwtUtilImpl.java                   # Standardimplementierung von JwtUtil mit konkreter JWT-Logik (z. B. via jjwt)
