@@ -53,7 +53,8 @@ WebStart-Backend-Java/
 │         │    │    │    │    ├─── DefaultApiResponseFactory.java     # Standardimplementierung von ApiResponseFactory
 │         │    │    │    │    └─── GlobalExceptionHandler.java        # Zentrales Exception-Handling, liefert standardisierte Fehler-Responses
 │         │    │    │    └─── util/                                   # Hilfsklassen & Werkzeuge für Authentifizierung
-│         │    │    │         ├─── JwtUtil.java                       # Utility-Klasse zum Erzeugen, Validieren und Parsen von JWTs
+│         │    │    │         ├─── JwtUtil.java                       # Interface für JWT-Operationen (Erzeugen, Validieren, Parsen von Tokens)
+│         │    │    │         ├─── JwtUtilImpl.java                   # Standardimplementierung von JwtUtil mit konkreter JWT-Logik (z. B. via jjwt)
 │         │    │    │         └─── PasswordHasher.java                # Utility-Klasse zum sicheren Hashen und Verifizieren von Passwörtern
 │         │    │    ├─── todo/                                        # Modul für Todo-Funktionalität
 │         │    │    │    ├─── controller/                             # REST-Controller mit den HTTP-Endpunkten (z. B. POST /api/todos)
