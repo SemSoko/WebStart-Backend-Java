@@ -1,7 +1,6 @@
 package com.semsoko.webstartbackend.shared.util;
 
 import com.semsoko.webstartbackend.auth.model.TokenClaims;
-
 import io.jsonwebtoken.JwtException;
 
 /**
@@ -18,14 +17,21 @@ import io.jsonwebtoken.JwtException;
 
 public interface JwtUtil {
     /**
-     * Erzeugt ein signiertes JWT basierend auf den übergebenen Claims.
+     *  Erzeugt ein signiertes Access-Token basierend auf den übergebenen Claims.
      *
-     * @params claims
-     * Objekt mit den zu speichernden Tokeninformationen wie Benutzer-ID, Rollen,
-     * Ausstellungs- und Ablaufzeit.
-     * @return  Signierter JWT-String.
+     *  @param claims Objekt mit den zu speichernden Tokeninformationen
+     *                wie Benutzer-ID, Rollen, Ausstellungs- und Ablaufzeit.
+     * @return Signierter JWT-String für den Zugriff (Access Token).
      */
-    String generateToken(TokenClaims claims);
+    String generateAccessToken(TokenClaims claims);
+
+    /**
+     * Erzeugt ein signiertes Refresh-Token basierend auf den übergebenen Claims.
+     *
+     * @param claims Objekt mit den zu speichernden Tokeninformationen.
+     * @return Signierter JWT-String für das Refresh Token.
+     */
+    String generateRefreshToken(TokenClaims claims);
 
     /**
      * Parst einen JWT-String und gibt die enthaltenen Claims als
@@ -36,6 +42,14 @@ public interface JwtUtil {
      * @throws      io.jsonwebtoken.JwtException wenn der Token ungültig oder manipuliert ist.
      */
     TokenClaims parseToken(String token);
+
+    /**
+     * Prueft, ob ein uebergebener JWT-String abgelaufen ist.
+     *
+     * @param token Der zu pruefende JWT-String.
+     * @return {@code true}, wenn das Ablaufdatum ueberschritten wurde, andernfalls {@code false}.
+     */
+    boolean isTokenExpired(String token);
 
     /**
      * Prüft, ob ein übergebener JWT-String gültig ist.
