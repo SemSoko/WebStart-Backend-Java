@@ -10,7 +10,7 @@ public class RefreshTokenResponse {
     private String tokenType = "Bearer";
 
     public RefreshTokenResponse(){
-        
+
     }
 
     public RefreshTokenResponse(
