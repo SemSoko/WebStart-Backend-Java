@@ -25,6 +25,7 @@ WebStart-Backend-Java/
 │         │    │    │    └─── service/                                # Geschäftslogik für Authentifizierung & Tokenmanagement
 │         │    │    │         ├─── AuthService.java                   # Interface für Authentifizierungs-Operationen
 │         │    │    │         ├─── AuthServiceImpl.java               # Implementierung der Authentifizierungslogik
+│         │    │    │         ├─── RedisTokenStoreService.java        # Implementierung von TokenStoreService mit Redis-Logik
 │         │    │    │         ├─── TokenService.java                  # Interface für Token-Erzeugung und -Verwaltung
 │         │    │    │         ├─── TokenServiceImpl.java              # Implementierung der Token-Logik (JWT-Erstellung, Validierung)
 │         │    │    │         └─── TokenStoreService.java             # Interface für Zugriff auf Redis (Refresh speichern, Blacklist prüfen, löschen)
