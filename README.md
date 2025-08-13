@@ -13,6 +13,7 @@ WebStart-Backend-Java/
 │         │    │    │    │    ├─── RefreshTokenRequest.java           # Eingabeobjekt für das Anfordern eines neuen Access-Tokens
 │         │    │    │    │    └─── RefreshTokenResponse.java          # Antwortobjekt mit neuem Access-/Refresh-Token
 │         │    │    │    ├─── model/                                  # Interne Authentifizierungs- und Autorisierungsmodelle
+│         │    │    │    │    ├─── RefreshTokenMetadata.java          # Metadaten zum Refresh Token (z. B. issuedAt, IP, User-Agent)
 │         │    │    │    │    ├─── Role.java                          # Benutzerrolle(n) für Berechtigungsprüfung
 │         │    │    │    │    ├─── TokenClaims.java                   # Datenstruktur der JWT-Claims (z.B. User-ID, Rollen)
 │         │    │    │    │    └─── User.java                          # Benutzer-Entity bzw. -Domainmodell
@@ -24,8 +25,10 @@ WebStart-Backend-Java/
 │         │    │    │    └─── service/                                # Geschäftslogik für Authentifizierung & Tokenmanagement
 │         │    │    │         ├─── AuthService.java                   # Interface für Authentifizierungs-Operationen
 │         │    │    │         ├─── AuthServiceImpl.java               # Implementierung der Authentifizierungslogik
+│         │    │    │         ├─── RedisTokenStoreService.java        # Implementierung von TokenStoreService mit Redis-Logik
 │         │    │    │         ├─── TokenService.java                  # Interface für Token-Erzeugung und -Verwaltung
-│         │    │    │         └─── TokenServiceImpl.java              # Implementierung der Token-Logik (JWT-Erstellung, Validierung)
+│         │    │    │         ├─── TokenServiceImpl.java              # Implementierung der Token-Logik (JWT-Erstellung, Validierung)
+│         │    │    │         └─── TokenStoreService.java             # Interface für Zugriff auf Redis (Refresh speichern, Blacklist prüfen, löschen)
 │         │    │    ├─── booking/                                     # Modul für Buchungsfunktionalität
 │         │    │    │    ├─── controller/                             # REST-Controller mit den HTTP-Endpunkten (z. B. POST /api/bookings)
 │         │    │    │    │    └─── BookingController.java             # Steuerung eingehender HTTP-Anfragen für Buchungen
@@ -52,6 +55,8 @@ WebStart-Backend-Java/
 │         │    │    │    │    ├─── DefaultApiErrorFactory.java        # Standardimplementierung von ApiErrorFactory
 │         │    │    │    │    ├─── DefaultApiResponseFactory.java     # Standardimplementierung von ApiResponseFactory
 │         │    │    │    │    └─── GlobalExceptionHandler.java        # Zentrales Exception-Handling, liefert standardisierte Fehler-Responses
+│         │    │    │    ├─── config/                                 # Globale Konfigurationsklassen (z. B. Redis, Caching, Mapper)
+│         │    │    │    │    └─── RedisConfig.java                   # RedisTemplate-Bean mit String-basierter Serialisierung für Schlüssel/Werte
 │         │    │    │    └─── util/                                   # Hilfsklassen & Werkzeuge für Authentifizierung
 │         │    │    │         ├─── JwtUtil.java                       # Interface für JWT-Operationen (Erzeugen, Validieren, Parsen von Tokens)
 │         │    │    │         ├─── JwtUtilImpl.java                   # Standardimplementierung von JwtUtil mit konkreter JWT-Logik (z. B. via jjwt)
