@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.semsoko.webstartbackend.auth.model.RefreshTokenMetadata;
 import com.semsoko.webstartbackend.auth.model.TokenClaims;
+
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,7 @@ public class RedisTokenStoreService implements TokenStoreService{
     private final ObjectMapper objectMapper;
 
     public RedisTokenStoreService(
-            RedisTemplate<String, String> redisTempalte,
+            @Qualifier("redisTemplate")RedisTemplate<String, String> redisTempalte,
             ObjectMapper objectMapper
     ){
         this.redisTemplate = redisTempalte;
