@@ -1,6 +1,8 @@
 package com.semsoko.webstartbackend.auth.service;
 
 import com.semsoko.webstartbackend.auth.dto.*;
+import com.semsoko.webstartbackend.auth.model.RefreshTokenMetadata;
+import com.semsoko.webstartbackend.auth.model.TokenClaims;
 
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,59 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public LoginResponse login(LoginRequest request){
-        return null;
+        /**
+         * 1. Benutzer validieren (Platzhalter fuer UserService)
+         */
+        String username = request.getUsername();
+        String password = request.getPassword();
+
+        /**
+         * TODO: Ersetze durch reale Benutzervalidierung
+         */
+        if(!"user".equals(username) || !"pass".equals(password)){
+            throw new RuntimeException("Invalid credentials");
+        }
+
+        /**
+         * 2. TokenClaims erzeugen
+         */
+        TokenClaims claims = new TokenClaims();
+        /**
+         * TODO: Mit echter User-ID ersetzen
+         */
+        claims.setUserId("123");
+        /**
+         * TODO: Echte Rolle setzen
+         */
+        claims.setRoles("USER");
+
+        /**
+         * 3. Token generieren
+         */
+        String accessToken = tokenService.generateAccessToken(claims);
+        String refreshToken = tokenService.generateRefreshToken(claims);
+
+        /**
+         * 4. Claims mit Zeitdaten aktualisieren (fuer Redis + Response)
+         */
+        TokenClaims parsedRefreshClaims = tokenService.parseToken(refreshToken);
+
+        /**
+         * 5. Refresh-Token in Redis speichern
+         */
+        RefreshTokenMetadata metadata = new RefreshTokenMetadata();
+        tokenStoreService.storeRefreshToken(parsedRefreshClaims, metadata);
+
+        /**
+         * 6. Response zurueckgeben
+         */
+        LoginResponse response = new LoginResponse();
+        response.setAccessToken(accessToken);
+        response.setRefreshToken(refreshToken);
+        response.setAccessTokenExpiration(claims.getExp());
+        response.setRefreshTokenExpiration(parsedRefreshClaims.getExp());
+
+        return response;
     }
 
     @Override
@@ -29,6 +83,6 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public void logout(LogoutRequest request, String accessTokenJti){
-        
+
     }
 }
