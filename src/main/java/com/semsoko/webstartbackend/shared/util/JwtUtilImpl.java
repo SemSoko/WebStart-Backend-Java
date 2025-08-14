@@ -56,7 +56,7 @@ public class JwtUtilImpl implements JwtUtil{
 
         return Jwts.builder()
                 .setId(claims.getJti() != null ? claims.getJti() : UUID.randomUUID().toString())
-                .setSubject(claims.getUserId())
+                .setSubject(claims.getUserId().toString())
                 .claim("roles", claims.getRoles())
                 .setIssuedAt(Date.from(now))
                 .setExpiration(Date.from(exp))
@@ -74,7 +74,7 @@ public class JwtUtilImpl implements JwtUtil{
         Claims body = jwsClaims.getBody();
 
         return new TokenClaims(
-                body.getSubject(),
+                UUID.fromString(body.getSubject()),
                 body.get("roles", List.class),
                 body.getId(),
                 body.getIssuedAt().toInstant(),
