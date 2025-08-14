@@ -80,7 +80,17 @@ WebStart-Backend-Java/
 │         │    │    │    └─── service/                                # Geschäftslogik für Todos (z. B. erstellen, speichern)
 │         │    │    │         ├─── InMemoryTodoService.java           # Zentrale Logik zum Anlegen und Verwalten von Todos
 │         │    │    │         └─── TodoService.java                   # Interface zur Definition der Todo-Service-Verträge
-│         │    │    │
+│         │    │    ├─── user/                                        # Modul zur Benutzerverwaltung (Datenmodell, Rollen, DB-Zugriff, Service-Logik)
+│         │    │    │    ├─── dto/                                    # Datenübertragungsobjekte für User-bezogene API-Antworten (z. B. /me-Endpunkt)
+│         │    │    │    │    └─── UserProfileResponse.java           # Antwort-DTO mit Benutzerinformationen (z. B. username, Rollen, ID)
+│         │    │    │    ├─── model/                                  # Domänenmodelle der Benutzerverwaltung (UserEntity & zugehörige Strukturen)
+│         │    │    │    │    ├─── Role.java                          # Enum für Benutzerrollen (z. B. USER, ADMIN) – Grundlage für Autorisierung
+│         │    │    │    │    └─── UserEntity.java                    # JPA-Entity für Benutzer mit Feldern wie ID, Username, Passwort, Rollen
+│         │    │    │    ├─── repository/                             # Datenzugriffsschicht zur Verwaltung von Benutzerdaten via JPA
+│         │    │    │    │    └─── UserRepository.java                # Interface für Datenbankzugriffe auf Benutzer (findByUsername etc.)
+│         │    │    │    └─── service/                                # Geschäftslogik für Benutzeroperationen (z. B. Laden, Validieren)
+│         │    │    │         ├─── UserService.java                   # Interface zur Definition von Benutzer-Operationen (z. B. findByUsername)
+│         │    │    │         └─── UserServiceImpl.java               # Konkrete Implementierung des UserService mit Zugriff auf Repository
 │         │    │    │
 │         │    │    └─── Application.java                             # Einstiegspunkt der Spring Boot Anwendung (main-Methode + Spring-Kontext)
 │         │    │
