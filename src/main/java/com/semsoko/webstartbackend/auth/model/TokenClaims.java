@@ -3,6 +3,7 @@ package com.semsoko.webstartbackend.auth.model;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Repräsentiert die Claims, die in einem JWT enthalten sind.
@@ -24,7 +25,7 @@ public class TokenClaims {
     /**
      * Eindeutige ID des Benutzers, auf den sich das Token bezieht.
      */
-    private String userId;
+    private UUID userId;
 
     /**
      * Liste der Rollen, die dem Benutzer zugeordnet sind.
@@ -65,7 +66,7 @@ public class TokenClaims {
      * @param exp       Ablaufzeitpunkt
      */
     public TokenClaims(
-            String userId,
+            UUID userId,
             List<String> roles,
             String jti,
             Instant iat,
@@ -78,11 +79,11 @@ public class TokenClaims {
         this.exp = exp;
     }
 
-    public String getUserId(){
+    public UUID getUserId(){
         return this.userId;
     }
 
-    public void setUserId(String userId){
+    public void setUserId(UUID userId){
         this.userId = userId;
     }
 
