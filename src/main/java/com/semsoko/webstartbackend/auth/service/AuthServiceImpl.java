@@ -4,6 +4,8 @@ import com.semsoko.webstartbackend.auth.dto.*;
 import com.semsoko.webstartbackend.auth.model.RefreshTokenMetadata;
 import com.semsoko.webstartbackend.auth.model.TokenClaims;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -45,7 +47,7 @@ public class AuthServiceImpl implements AuthService{
         /**
          * TODO: Echte Rolle setzen
          */
-        claims.setRoles("USER");
+        claims.setRoles(List.of("USER"));
 
         /**
          * 3. Token generieren
