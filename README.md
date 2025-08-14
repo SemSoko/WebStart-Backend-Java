@@ -10,6 +10,7 @@ WebStart-Backend-Java/
 │         │    │    │    ├─── dto/                                    # Datenobjekte für Auth-Requests/-Responses
 │         │    │    │    │    ├─── LoginRequest.java                  # Eingabeobjekt für Login (z.B. Benutzername, Passwort)
 │         │    │    │    │    ├─── LoginResponse.java                 # Antwortobjekt mit Access-/Refresh-Token
+│         │    │    │    │    ├─── LogoutRequest.java                 # Anfrageobjekt für Logout – optional mit allDevices-Flag
 │         │    │    │    │    ├─── RefreshTokenRequest.java           # Eingabeobjekt für das Anfordern eines neuen Access-Tokens
 │         │    │    │    │    └─── RefreshTokenResponse.java          # Antwortobjekt mit neuem Access-/Refresh-Token
 │         │    │    │    ├─── model/                                  # Interne Authentifizierungs- und Autorisierungsmodelle
