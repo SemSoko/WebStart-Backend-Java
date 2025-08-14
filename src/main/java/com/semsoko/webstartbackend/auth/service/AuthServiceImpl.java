@@ -80,7 +80,67 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public RefreshTokenResponse refresh(RefreshTokenRequest request){
-        return null;
+        String refreshToken = request.getRefreshToken();
+
+        /**
+         * 1. TokenClaims aus Refresh-Token extrahieren
+         */
+        TokenClaims oldClaims = tokenService.parseToken(refreshToken);
+        String userId = oldClaims.getUserId();
+        String jti = oldClaims.getJti();
+
+        /**
+         * 2. Redis pruefen -> existiert der Token?
+         */
+        if(!tokenStoreService.isRefreshTokenValid(userId, jti)){
+            throw new RuntimeException("Invalid or expired refresh token");
+        }
+
+        /**
+         * 3. Alten Refresh Token loeschen
+         */
+        tokenStoreService.deleteRefreshToken(userId, jti);
+
+        /**
+         * 4. Neue Claims erzeugen
+         */
+        TokenClaims newClaims = new TokenClaims();
+        newClaims.setUserId(userId);
+        /**
+         * Alte Rolle uebernehmen
+         */
+        newClaims.setRoles(oldClaims.getRoles());
+
+        /**
+         * 5. Neue Tokens erzeugen
+         */
+        String newAcessToken = tokenService.generateAccessToken(newClaims);
+        String newRefreshToken = tokenService.generateRefreshToken(newClaims);
+
+        /**
+         * 6. Neue Claims parsen (um exp fuer Redis + Response zu bekommen)
+         */
+        TokenClaims parsedRefreshClaims = tokenService.parseToken(newRefreshToken);
+
+        /**
+         * 7. Refresh Token in Redis speichern
+         */
+        RefreshTokenMetadata metadata = new RefreshTokenMetadata();
+        /**
+         * userAgent / IP einfuegen
+         */
+        tokenStoreService.storeRefreshToken(parsedRefreshClaims, metadata);
+
+        /**
+         * 8. Response zurueckgeben
+         */
+        RefreshTokenResponse response = new RefreshTokenResponse();
+        response.setAccessToken(newAcessToken);
+        response.setRefreshToken(newRefreshToken);
+        response.setAccessTokenExpiration(newClaims.getExp());
+        response.setRefreshTokenExpiration(parsedRefreshClaims.getExp());
+
+        return response;
     }
 
     @Override
