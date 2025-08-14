@@ -15,9 +15,7 @@ WebStart-Backend-Java/
 │         │    │    │    │    └─── RefreshTokenResponse.java          # Antwortobjekt mit neuem Access-/Refresh-Token
 │         │    │    │    ├─── model/                                  # Interne Authentifizierungs- und Autorisierungsmodelle
 │         │    │    │    │    ├─── RefreshTokenMetadata.java          # Metadaten zum Refresh Token (z. B. issuedAt, IP, User-Agent)
-│         │    │    │    │    ├─── Role.java                          # Benutzerrolle(n) für Berechtigungsprüfung
-│         │    │    │    │    ├─── TokenClaims.java                   # Datenstruktur der JWT-Claims (z.B. User-ID, Rollen)
-│         │    │    │    │    └─── User.java                          # Benutzer-Entity bzw. -Domainmodell
+│         │    │    │    │    └─── TokenClaims.java                   # Datenstruktur der JWT-Claims (z.B. User-ID, Rollen)
 │         │    │    │    ├─── repository/                             # Zugriff auf externe Speichersysteme für Auth-Daten
 │         │    │    │    │    └─── RedisTokenRepository.java          # Verwaltung von Tokens (z.B. Blacklist, Refresh Tokens) in Redis
 │         │    │    │    ├─── security/                               # Sicherheitskonfiguration & Filter
