@@ -4,15 +4,16 @@ import com.semsoko.webstartbackend.auth.model.RefreshTokenMetadata;
 import com.semsoko.webstartbackend.auth.model.TokenClaims;
 
 import java.time.Instant;
+import java.util.UUID;
 
 public interface TokenStoreService {
     /**
      * === Refresh Token Store ===
      */
     void storeRefreshToken(TokenClaims claims, RefreshTokenMetadata metadata);
-    boolean isRefreshTokenValid(String userId, String jti);
-    void deleteRefreshToken(String userId, String jti);
-    void deleteAllRefreshTokensForUser(String userId);
+    boolean isRefreshTokenValid(UUID userId, String jti);
+    void deleteRefreshToken(UUID userId, String jti);
+    void deleteAllRefreshTokensForUser(UUID userId);
 
     /**
      * === Access Token Blacklist ===

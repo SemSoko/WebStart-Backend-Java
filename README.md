@@ -15,9 +15,7 @@ WebStart-Backend-Java/
 │         │    │    │    │    └─── RefreshTokenResponse.java          # Antwortobjekt mit neuem Access-/Refresh-Token
 │         │    │    │    ├─── model/                                  # Interne Authentifizierungs- und Autorisierungsmodelle
 │         │    │    │    │    ├─── RefreshTokenMetadata.java          # Metadaten zum Refresh Token (z. B. issuedAt, IP, User-Agent)
-│         │    │    │    │    ├─── Role.java                          # Benutzerrolle(n) für Berechtigungsprüfung
-│         │    │    │    │    ├─── TokenClaims.java                   # Datenstruktur der JWT-Claims (z.B. User-ID, Rollen)
-│         │    │    │    │    └─── User.java                          # Benutzer-Entity bzw. -Domainmodell
+│         │    │    │    │    └─── TokenClaims.java                   # Datenstruktur der JWT-Claims (z.B. User-ID, Rollen)
 │         │    │    │    ├─── repository/                             # Zugriff auf externe Speichersysteme für Auth-Daten
 │         │    │    │    │    └─── RedisTokenRepository.java          # Verwaltung von Tokens (z.B. Blacklist, Refresh Tokens) in Redis
 │         │    │    │    ├─── security/                               # Sicherheitskonfiguration & Filter
@@ -80,7 +78,17 @@ WebStart-Backend-Java/
 │         │    │    │    └─── service/                                # Geschäftslogik für Todos (z. B. erstellen, speichern)
 │         │    │    │         ├─── InMemoryTodoService.java           # Zentrale Logik zum Anlegen und Verwalten von Todos
 │         │    │    │         └─── TodoService.java                   # Interface zur Definition der Todo-Service-Verträge
-│         │    │    │
+│         │    │    ├─── user/                                        # Modul zur Benutzerverwaltung (Datenmodell, Rollen, DB-Zugriff, Service-Logik)
+│         │    │    │    ├─── dto/                                    # Datenübertragungsobjekte für User-bezogene API-Antworten (z. B. /me-Endpunkt)
+│         │    │    │    │    └─── UserProfileResponse.java           # Antwort-DTO mit Benutzerinformationen (z. B. username, Rollen, ID)
+│         │    │    │    ├─── model/                                  # Domänenmodelle der Benutzerverwaltung (UserEntity & zugehörige Strukturen)
+│         │    │    │    │    ├─── Role.java                          # Enum für Benutzerrollen (z. B. USER, ADMIN) – Grundlage für Autorisierung
+│         │    │    │    │    └─── UserEntity.java                    # JPA-Entity für Benutzer mit Feldern wie ID, Username, Passwort, Rollen
+│         │    │    │    ├─── repository/                             # Datenzugriffsschicht zur Verwaltung von Benutzerdaten via JPA
+│         │    │    │    │    └─── UserRepository.java                # Interface für Datenbankzugriffe auf Benutzer (findByUsername etc.)
+│         │    │    │    └─── service/                                # Geschäftslogik für Benutzeroperationen (z. B. Laden, Validieren)
+│         │    │    │         ├─── UserService.java                   # Interface zur Definition von Benutzer-Operationen (z. B. findByUsername)
+│         │    │    │         └─── UserServiceImpl.java               # Konkrete Implementierung des UserService mit Zugriff auf Repository
 │         │    │    │
 │         │    │    └─── Application.java                             # Einstiegspunkt der Spring Boot Anwendung (main-Methode + Spring-Kontext)
 │         │    │
