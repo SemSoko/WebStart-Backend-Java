@@ -13,6 +13,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class RedisTokenStoreService implements TokenStoreService{
@@ -27,11 +28,11 @@ public class RedisTokenStoreService implements TokenStoreService{
         this.objectMapper = objectMapper;
     }
 
-    private String getRefreshTokenKey(String userId, String jti){
+    private String getRefreshTokenKey(UUID userId, String jti){
         return String.format("refresh:%s%s", userId, jti);
     }
 
-    private String getRefreshIndexKey(String userId){
+    private String getRefreshIndexKey(UUID userId){
         return String.format("refresh:index:%s", userId);
     }
 
@@ -45,7 +46,7 @@ public class RedisTokenStoreService implements TokenStoreService{
             RefreshTokenMetadata metadata
     ){
         try{
-            String userId = claims.getUserId();
+            UUID userId = claims.getUserId();
             String token = claims.getJti();
             Duration ttl = Duration.between(Instant.now(), claims.getExp());
 
@@ -63,7 +64,7 @@ public class RedisTokenStoreService implements TokenStoreService{
 
     @Override
     public boolean isRefreshTokenValid(
-            String userId,
+            UUID userId,
             String jti
     ){
         String tokenKey = getRefreshTokenKey(userId, jti);
@@ -72,7 +73,7 @@ public class RedisTokenStoreService implements TokenStoreService{
     }
 
     @Override
-    public void deleteRefreshToken(String userId, String jti){
+    public void deleteRefreshToken(UUID userId, String jti){
         String tokenKey = getRefreshTokenKey(userId, jti);
         String indexKey = getRefreshIndexKey(userId);
 
@@ -81,7 +82,7 @@ public class RedisTokenStoreService implements TokenStoreService{
     }
 
     @Override
-    public void deleteAllRefreshTokensForUser(String userId){
+    public void deleteAllRefreshTokensForUser(UUID userId){
         String indexKey = getRefreshIndexKey(userId);
 
         Set<String> tokenKeys = redisTemplate.opsForSet().members(indexKey);
