@@ -4,6 +4,7 @@ import com.semsoko.webstartbackend.auth.dto.*;
 import com.semsoko.webstartbackend.auth.model.RefreshTokenMetadata;
 import com.semsoko.webstartbackend.auth.model.TokenClaims;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -145,6 +146,26 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public void logout(LogoutRequest request, String accessTokenJti){
+        TokenClaims accessTokenClaims = tokenService.parseToken("Bearer " + accessTokenJti);
+        String userId = accessTokenClaims.getUserId();
+        Instant accessTokenExp = accessTokenClaims.getExp();
 
+        if(request.isAllDevices()){
+            /**
+             * 1. Alle Refresh Tokens des Benutzers loeschen
+             */
+            tokenStoreService.deleteAllRefreshTokensForUser(userId);
+        }else{
+            /**
+             * 2. Nur das uebermittelte Refresh Token loeschen
+             */
+            TokenClaims refreshClaims = tokenService.parseToken(request.getRefreshToken());
+            tokenStoreService.deleteRefreshToken(refreshClaims.getUserId(), refreshClaims.getJti());
+        }
+
+        /**
+         * 3. Access Token in die Blacklist eintragen
+         */
+        tokenStoreService.blacklistAccessToken(accessTokenJti, accessTokenExp);
     }
 }
